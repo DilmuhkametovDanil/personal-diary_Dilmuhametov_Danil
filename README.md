@@ -1,2 +1,1 @@
-# personal-diary_Dilmuhametov_Danil
-Лаб1-2
+# Личный дневник на Flask
