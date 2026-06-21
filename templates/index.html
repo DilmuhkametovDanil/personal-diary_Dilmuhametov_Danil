@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Мои записи</h2>
+
+{% if search_query %}
+    <p class="info">Результаты поиска по запросу: "<strong>{{ search_query }}</strong>" | <a href="/">Сбросить</a></p>
+{% endif %}
+
+{% if filter_active %}
+    <p class="info">Показаны записи за последние 7 дней | <a href="/">Сбросить</a></p>
+{% endif %}
+
+{% if entries %}
+    <div class="entries-list">
+        {% for entry in entries %}
+            <div class="entry-card">
+                <h3>{{ entry.title }}</h3>
+                <span class="date">📅 {{ entry.date }}</span>
+                <div class="actions">
+                    <a href="{{ url_for('detail', entry_id=entry.id) }}" class="btn">Читать</a>
+                    <form action="{{ url_for('delete', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить эту запись?')">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="empty-msg">Пока нет записей. Создайте первую!</p>
+{% endif %}
+{% endblock %}
